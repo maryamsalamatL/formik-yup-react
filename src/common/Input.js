@@ -1,7 +1,6 @@
 import { Field, ErrorMessage } from "formik";
 
 const Input = ({ label, name, formik, type = "text" }) => {
-  console.log(formik);
   return (
     <div className="formController">
       <label htmlFor={name}>{label}</label>

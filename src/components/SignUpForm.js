@@ -1,16 +1,21 @@
 import { useState } from "react";
 import { useFormik, Form, Field, ErrorMessage, Formik } from "formik";
-import { object, string, number, date, InferType, ref } from "yup";
-import Input from "../common/Input";
+import { object, string, ref, array, boolean } from "yup";
 // import * as yup from "yup"
 //yup.object({...})  yup.string()
+import Input from "../common/Input";
+import RadioInput from "../common/RadioInput";
+import SelectInput from "../common/SelectInput";
+import CheckBox from "../common/CheckBoxInput";
 
 const savedData = {
   name: "maryam",
   email: "maryamsalamat47@gmail.com",
   password: "Mssl03@l",
   passwordConfirm: "Mssl03@l",
-  gender: "1",
+  gender: "0",
+  country: "Iran",
+  interest: ["react"],
 };
 
 const initialValues = {
@@ -19,6 +24,9 @@ const initialValues = {
   password: "",
   passwordConfirm: "",
   gender: "",
+  country: "",
+  interest: [],
+  terms: false,
 };
 
 const validationSchema = object({
@@ -34,7 +42,30 @@ const validationSchema = object({
     .required("passwordConfirm is required")
     .oneOf([ref("password"), null], "password must match"),
   gender: string().required("gender is required"),
+  country: string().required("country is required"),
+  interest: array().min(1).required("at least select one experties"),
+  terms: boolean().oneOf([true], "You must accept the terms and conditions"),
 });
+
+const radioOptions = [
+  { value: 0, label: "Male" },
+  { value: 1, label: "Female" },
+];
+const checkBoxOptions = [
+  { value: "react", label: "React.Js" },
+  { value: "node", label: "Node.Js" },
+];
+
+const selectOptions = [
+  { value: "", label: "Select your country " },
+  { value: "Iran", label: "Iran" },
+  { value: "US", label: "US" },
+  { value: "Turkey", label: "Turkey" },
+  { value: "France", label: "France" },
+  { value: "Spain", label: "Spain" },
+  { value: "Italy", label: "Italy" },
+];
+
 const SignUpForm = () => {
   const [formData, setFormData] = useState(null);
   // const onSubmit = (values) => {};
@@ -123,10 +154,11 @@ const SignUpForm = () => {
       onSubmit={(values) => {
         console.log(values);
       }}
-      validateOnMount={true}
-      enableReinitialize={true}
+      validateOnMount="true"
+      enableReinitialize="true"
     >
       {(formik) => {
+        console.log(formik.values);
         return (
           <Form>
             <Input name="name" formik={formik} label="Name" />
@@ -143,20 +175,32 @@ const SignUpForm = () => {
               label="Password Confirm"
               type="password"
             />
-
+            <RadioInput
+              formik={formik}
+              name="gender"
+              radioOptions={radioOptions}
+            />
+            <SelectInput
+              selectOptions={selectOptions}
+              formik={formik}
+              name="country"
+            />
+            <CheckBox
+              name="interest"
+              formik={formik}
+              checkBoxOptions={checkBoxOptions}
+            />
             <div>
-              <Field type="radio" name="gender" id="0" value="0" />
-              <label htmlFor="0">Male</label>
-              <Field type="radio" name="gender" id="1" value="1" />
-              <label htmlFor="1">Female</label>
-              {formik.errors.gender && formik.touched.gender && (
-                <ErrorMessage
-                  name="gender"
-                  component="span"
-                  className="error"
-                />
-              )}
+              <Field
+                name="terms"
+                id="terms"
+                // value={true}
+                type="checkbox"
+                // checked={formik.values.terms}
+              />
+              <label htmlFor="terms">Terms and Conditions</label>
             </div>
+
             <button
               className="submitBtn"
               onClick={() => setFormData(savedData)}

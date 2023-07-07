@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/formik-yup-react/static/css/main.1638650e.css",
+    "main.js": "/formik-yup-react/static/js/main.a9ffbef3.js",
+    "index.html": "/formik-yup-react/index.html",
+    "main.1638650e.css.map": "/formik-yup-react/static/css/main.1638650e.css.map",
+    "main.a9ffbef3.js.map": "/formik-yup-react/static/js/main.a9ffbef3.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1638650e.css",
+    "static/js/main.a9ffbef3.js"
+  ]
+}

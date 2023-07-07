@@ -9,11 +9,11 @@ import SelectInput from "../common/SelectInput";
 import CheckBox from "../common/CheckBoxInput";
 
 const savedData = {
-  name: "maryam",
-  email: "maryamsalamat47@gmail.com",
-  password: "Mssl03@l",
-  passwordConfirm: "Mssl03@l",
-  gender: "0",
+  name: "test",
+  email: "test@gmail.com",
+  password: "Test123#",
+  passwordConfirm: "Test123#",
+  gender: "1",
   country: "Iran",
   interest: ["react"],
 };
@@ -48,8 +48,8 @@ const validationSchema = object({
 });
 
 const radioOptions = [
-  { value: 0, label: "Male" },
-  { value: 1, label: "Female" },
+  { value: "0", label: "Male" },
+  { value: "1", label: "Female" },
 ];
 const checkBoxOptions = [
   { value: "react", label: "React.Js" },
@@ -151,16 +151,14 @@ const SignUpForm = () => {
     <Formik
       initialValues={formData || initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values) => {
-        console.log(values);
-      }}
+      onSubmit={(values) => {}}
       validateOnMount="true"
       enableReinitialize="true"
     >
       {(formik) => {
-        console.log(formik.values);
         return (
           <Form>
+            <h1>Signup Form</h1>
             <Input name="name" formik={formik} label="Name" />
             <Input name="email" formik={formik} label="Email" type="email" />
             <Input
@@ -201,14 +199,11 @@ const SignUpForm = () => {
               <label htmlFor="terms">Terms and Conditions</label>
             </div>
 
-            <button
-              className="submitBtn"
-              onClick={() => setFormData(savedData)}
-            >
+            <button className="btn" onClick={() => setFormData(savedData)}>
               Load data
             </button>
             <button
-              className="submitBtn"
+              className="btn submitBtn"
               type="submit"
               disabled={!formik.isValid}
             >

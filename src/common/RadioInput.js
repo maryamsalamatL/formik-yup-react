@@ -1,4 +1,4 @@
-import { Field, ErrorMessage } from "formik";
+import { ErrorMessage } from "formik";
 import { Fragment } from "react";
 
 const RadioInput = ({ name, formik, radioOptions }) => {
@@ -12,7 +12,10 @@ const RadioInput = ({ name, formik, radioOptions }) => {
             id={item.value}
             value={item.value}
             onChange={formik.handleChange}
-            // checked={formik.values[name] === item.value  }
+            checked={
+              formik.initialValues[name] === item.value ||
+              formik.values[name] === item.value
+            }
           />
           <label htmlFor={item.value}>{item.label}</label>
         </Fragment>
